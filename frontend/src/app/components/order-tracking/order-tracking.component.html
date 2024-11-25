@@ -1,0 +1,71 @@
+<div class="tracking-container">
+  <div class="order-header">
+    <h1>Status do Pedido</h1>
+    <div *ngIf="orderDetails" class="order-info">
+      <p class="order-number">Pedido #{{ orderDetails.id }}</p>
+      <p *ngIf="orderDetails.status == 'CANCELLED'" class="estimated-delivery">
+        Pedido cancelado
+      </p>
+      <p *ngIf="orderDetails.status != 'CANCELLED'" class="estimated-delivery">
+        Entrega estimada: {{ getEstimatedDeliveryTime() }}
+      </p>
+    </div>
+  </div>
+
+  <div class="status-timeline">
+    <div *ngFor="let status of orderStatuses; let last = last" 
+         class="status-item"
+         [class.completed]="status.completed">
+      
+      <div class="status-indicator">
+        <div class="status-circle">
+          <i *ngIf="status.completed" class="check-icon">✓</i>
+        </div>
+        <div *ngIf="!last" class="status-line" 
+             [class.completed]="status.completed"></div>
+      </div>
+
+      <div class="status-content">
+        <h3>{{ status.title }}</h3>
+        <p>{{ status.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="orderDetails" class="order-details">
+    <h2>Detalhes do pedido</h2>
+    <div class="details-grid">
+      <div class="details-section">
+        <h3>Nome:</h3>
+        <p>{{ orderDetails.user.name }}</p>
+        <h3>Endereço:</h3>
+        <p>{{ orderDetails.address || 'Não informado' }}</p>
+        <h3>Telefone:</h3>
+        <p>{{ orderDetails.phone }}</p>
+      </div>
+
+      <div class="details-section">
+        <h3>Resumo do pedido</h3>
+        <div class="order-items">
+          <div *ngFor="let dish of orderDetails.dishes" class="order-item">
+            <span>{{ dish.name }}</span>
+            <span>R$ {{ dish.price.toFixed(2) }}</span>
+          </div>
+        </div>
+        <div class="order-total">
+          <strong>Total:</strong>
+          <strong>R$ {{ orderDetails.totalAmount.toFixed(2) }}</strong>
+        </div>
+      </div>
+
+      <div class="details-section">
+        <h3>Pagamento</h3>
+        <p>Método: {{ orderDetails.paymentMethod || '' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="back-button" (click)="backToStore()">Voltar ao carrinho</button>
+  </div>
+</div>

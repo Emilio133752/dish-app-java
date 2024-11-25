@@ -1,0 +1,78 @@
+<!-- src/app/components/checkout/checkout.component.html -->
+
+<div class="checkout-container">
+    <div class="order-summary">
+      <h2>Carrinho: </h2>
+      <div class="cart-items">
+        <div *ngFor="let item of cartItems" class="cart-item">
+          <span>{{item.name}} x {{item.quantity}}</span>
+          <span>R$ {{(item.price * item.quantity).toFixed(2)}}</span>
+        </div>
+      </div>
+      <div class="total">
+        <strong>Total:</strong>
+        <strong>R$ {{totalAmount.toFixed(2)}}</strong>
+      </div>
+    </div>
+  
+    <div class="customer-info">
+      <h2>Pagamento </h2>
+      <form (ngSubmit)="confirmOrder()" #checkoutForm="ngForm">
+        <div class="form-group">
+          <label for="customerName">Nome</label>
+          <input 
+            type="text" 
+            id="customerName" 
+            name="customerName"
+            [(ngModel)]="orderInfo.customerName"
+            required
+          >
+        </div>
+  
+        <div class="form-group">
+          <label for="address">Endereço</label>
+          <textarea 
+            id="address" 
+            name="address"
+            [(ngModel)]="orderInfo.address"
+            required
+          ></textarea>
+        </div>
+  
+        <div class="form-group" x-data>
+          <label for="phone">Telefone:</label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone"
+            x-mask="(99) 99999-9999"
+            [(ngModel)]="orderInfo.phone"
+            required
+          >
+        </div>
+  
+        <div class="form-group">
+          <label for="paymentMethod">Método de Pagamento</label>
+          <select 
+            id="paymentMethod" 
+            name="paymentMethod"
+            [(ngModel)]="orderInfo.paymentMethod"
+            required
+          >
+            <option value="Crédito">Cartão de Crédito</option>
+            <option value="Débito">Cartão de Débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+          </select>
+        </div>
+  
+        <div class="buttons">
+          <button type="button" class="back-button" (click)="goBackToStore()">
+            Voltar ao cardápio
+          </button>
+          <button type="submit" class="confirm-button" [disabled]="!checkoutForm.form.valid">
+            Confirmar pedido
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,30 @@
+<div class="container">
+    <h2>{{ isEdit ? 'Atualizar Usuário' : 'Adicionar Usuário'}}</h2>
+    <div>
+      <form (ngSubmit)="submit()">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" [(ngModel)]="user.name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" [(ngModel)]="user.email" name="email" required>
+      
+        <label for="password">Senha:</label>
+        <input type="password" id="password" [(ngModel)]="user.password" name="password" required>
+
+        <label for="phoneNumber">Telefone:</label>
+        <div x-data>
+            <input x-mask="(99) 99999-9999" type="text" id="phoneNumber" [(ngModel)]="user.phoneNumber" name="phoneNumber" required>
+        </div>
+
+        <label for="role">Nível de acesso:</label>
+        <select [(ngModel)]="user.role" name="user.role" style="margin-bottom: 2rem;">
+            <option value="cliente" selected>Cliente</option>
+            <option value="gerente">Gerente</option>
+            <option value="entregador">Entregador</option>
+        </select>
+      
+        <button class="adicionar" type="submit">{{ isEdit ? 'Atualiza' : 'Salvar'}}</button>
+        <button class="limpar" type="reset">limpar</button>
+      </form>
+    </div>
+  </div>

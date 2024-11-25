@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>{{ isEdit ? 'Atualizar Produto' : 'Adicionar Produto'}}</h2>
+    <div>
+      <form (ngSubmit)="submit()">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" [(ngModel)]="produto.nome" name="nome" required>
+
+        <label for="preco">Preço:</label>
+        <input type="text" id="preco" [currencyMask]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" [value]="precoFormatted" [(ngModel)]="produto.preco" required>
+        
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" [(ngModel)]="produto.descricao" name="descricao" required></textarea>
+
+        <label for="role">Categoria:</label>
+        <select [(ngModel)]="produto.categoria" name="categoria" style="margin-bottom: 2rem;">
+            <option [ngValue]="null">Selecione uma categoria</option>
+            <option *ngFor="let categ of categs" [ngValue]="categ">
+                {{ categ.nome }}
+            </option>
+        </select>
+      
+        <button class="adicionar" type="submit">{{ isEdit ? 'Atualizar' : 'Salvar'}}</button>
+        <button class="limpar" type="reset">limpar</button>
+      </form>
+    </div>
+</div>

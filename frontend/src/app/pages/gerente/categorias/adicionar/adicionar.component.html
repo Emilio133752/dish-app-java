@@ -1,0 +1,13 @@
+<div class="container">
+    <h2>{{ isEdit ? 'Atualizar Categoria' : 'Adicionar Categoria'}}</h2>
+    <div>
+      <form (ngSubmit)="submit()">
+        <label for="nome">Nome:</label>
+        <input style="margin-bottom: 2rem;" type="text" id="nome" [(ngModel)]="categ.nome" name="nome" required>
+      
+        <button class="adicionar" type="submit">{{ isEdit ? 'Atualiza' : 'Salvar'}}</button>
+        <button class="limpar" type="reset">limpar</button>
+      </form>
+    </div>
+  </div>
+

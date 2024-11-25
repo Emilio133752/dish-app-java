@@ -1,0 +1,25 @@
+<h2>Products List</h2>
+<div class="box">
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Categoria</th>
+    <th>Preço</th>
+    <th>Ações</th>
+  </tr>
+  <tr *ngFor="let prod of products">
+    <td>{{ prod.id }}</td>
+    <td>{{ prod.nome }}</td>
+    <td>{{ prod.categoria?.nome?? '' }}</td>
+    <td>{{ prod.preco }}</td>
+    <td>
+      <button class="delete" (click)="deleteProduct(prod.id!)">Deletar</button>
+      <a class="edit" [routerLink]="['/edit-product', prod.id]">Editar</a>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+<a class="newProd" routerLink="/add-product">NOVO PRODUTO</a>

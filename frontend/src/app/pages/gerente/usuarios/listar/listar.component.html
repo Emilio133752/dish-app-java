@@ -1,0 +1,25 @@
+<h2>User List</h2>
+<div class="box">
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Email</th>
+    <th>Cargo</th>
+    <th>Ações</th>
+  </tr>
+  <tr *ngFor="let user of users">
+    <td>{{ user.id }}</td>
+    <td>{{ getFirstName(user.name || '') }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ upercaseFirstLetter(user.role || '') }}</td>
+    <td>
+      <button class="delete" (click)="deleteUser(user.id!)">Deletar</button>
+      <a class="edit" [routerLink]="['/edit-user', user.id]">Editar</a>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+<a class="newUser" routerLink="/add-user">NOVO USUÁRIO</a>

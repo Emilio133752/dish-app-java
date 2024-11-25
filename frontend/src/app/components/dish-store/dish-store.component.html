@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="dishes-container">
+      <h2>Cardápio</h2>
+      <div class="dishes-grid">
+        <div *ngFor="let dish of dishes" class="dish-card">
+          <h3>{{dish.name}}</h3>
+          <p>{{dish.description}}</p>
+          <p class="price">R$ {{dish.price.toFixed(2)}}</p>
+          <button (click)="addToCart(dish)" class="add-button">
+            Adicionar ao carrinho
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="cart-container">
+      <h2>Carrinho</h2>
+      <div *ngIf="cart.length === 0" class="empty-cart">
+        Seu carrinho está vazio
+      </div>
+      <div *ngIf="cart.length > 0">
+        <div *ngFor="let item of cart" class="cart-item">
+          <div class="item-info">
+            <span>{{item.name}}</span>
+            <span>R$ {{item.price.toFixed(2)}}</span>
+          </div>
+          <div class="quantity-controls">
+            <button (click)="removeFromCart(item)">-</button>
+            <span>{{item.quantity}}</span>
+            <button (click)="addToCart(item)">+</button>
+          </div>
+        </div>
+        <div class="cart-total">
+          <strong>Total: R$ {{totalAmount.toFixed(2)}}</strong>
+        </div>
+        <button (click)="checkout()" class="checkout-button">
+          Finalizar
+        </button>
+      </div>
+    </div>
+  </div>

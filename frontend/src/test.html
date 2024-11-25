@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Gourmet - Teste</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- App Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="app/app.component.css">
+    <link rel="stylesheet" href="app/components/dish-form/dish-form.component.css">
+    <link rel="stylesheet" href="app/components/dish-list/dish-list.component.css">
+    
+    <style>
+        .test-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu de Teste -->
+    <div class="test-nav">
+        <button onclick="showComponent('dish-list')">Lista de Pratos</button>
+        <button onclick="showComponent('dish-form')">Formulário de Prato</button>
+        <button onclick="showComponent('payment')">Pagamento</button>
+    </div>
+
+    <!-- Componentes -->
+    <div id="dish-list" class="component"></div>
+    <div id="dish-form" class="component"></div>
+    <div id="payment" class="component"></div>
+
+    <script>
+        // Carrega os componentes
+        async function loadComponents() {
+            const components = {
+                'dish-list': 'app/components/dish-list/dish-list.component.html',
+                'dish-form': 'app/components/dish-form/dish-form.component.html',
+                'payment': 'app/services/payment-service.html'
+            };
+
+            for (const [id, path] of Object.entries(components)) {
+                try {
+                    const response = await fetch(path);
+                    const html = await response.text();
+                    document.getElementById(id).innerHTML = html;
+                } catch (error) {
+                    console.error(`Erro ao carregar ${path}:`, error);
+                }
+            }
+        }
+
+        // Mostra/esconde componentes
+        function showComponent(componentId) {
+            document.querySelectorAll('.component').forEach(comp => {
+                comp.style.display = 'none';
+            });
+            document.getElementById(componentId).style.display = 'block';
+        }
+
+        // Inicializa
+        window.addEventListener('load', () => {
+            loadComponents();
+            showComponent('dish-list'); // Começa com a lista de pratos
+        });
+
+        // Funcionalidade dos botões de voltar
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.back-btn')) {
+                showComponent('dish-list');
+            }
+        });
+
+        // Simula funcionalidade do carrinho
+        let cart = [];
+        
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('add-to-cart')) {
+                const item = e.target.closest('.cart-item');
+                const name = item.querySelector('h3').textContent;
+                const price = item.querySelector('.price').textContent;
+                
+                cart.push({ name, price });
+                alert(`${name} adicionado ao carrinho!`);
+                updateCartTotal();
+            }
+        });
+
+        function updateCartTotal() {
+            const total = cart.reduce((sum, item) => {
+                const price = parseFloat(item.price.replace('R$ ', '').replace(',', '.'));
+                return sum + price;
+            }, 0);
+            
+            const totalElement = document.querySelector('.cart-total p');
+            if (totalElement) {
+                totalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
+            }
+        }
+    </script>
+</body>
+</html>

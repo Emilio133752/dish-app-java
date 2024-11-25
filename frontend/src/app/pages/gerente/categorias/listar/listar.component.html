@@ -1,0 +1,20 @@
+<h2>Category List</h2>
+<div class="box">
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Nome</th>
+  </tr>
+  <tr *ngFor="let categ of categs">
+    <td>{{ categ.id }}</td>
+    <td>{{ categ.nome }}</td>
+    <td>
+      <button class="delete" (click)="deleteCategory(categ.id!)">Deletar</button>
+      <a class="edit" [routerLink]="['/edit-category', categ.id]">Editar</a>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+<a class="newCateg" routerLink="/add-category">NOVA CATEGORIA</a>

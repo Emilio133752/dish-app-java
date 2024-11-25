@@ -1,0 +1,21 @@
+{
+    "dishes": [
+      { "id": 1, "name": "Hambúrguer", "description": "Delicioso hambúrguer com queijo", "price": 18.90 },
+      { "id": 2, "name": "Chopp", "description": "Chopp gelado", "price": 18.00                          },
+      { "id": 3, "name": "Porção de Batata", "description": "Porção generosa de batatas fritas", "price": 18.90 }
+    ],
+    "users": [
+      { "id": 1, "name": "João", "email": "joao@example.com", "role": "CUSTOMER", "phoneNumber": "123456789" }
+    ],
+    "orders": [
+      {
+        "id": 1,
+        "user": { "id": 1 },
+        "dishes": [{ "id": 1 }, { "id": 2 }],
+        "totalAmount": 18.98,
+        "status": "PENDING",
+        "orderDate": "2024-10-25"
+      }
+    ]
+  }
+  

@@ -1,0 +1,44 @@
+<div class="tracking-container">
+    <div *ngIf="orderDetails" class="order-details">
+        <h2>Detalhes do pedido #{{ orderDetails.id }}</h2>
+        <div class="details-grid">
+            <div class="details-section">
+                <h3>Nome:</h3>
+                <p>{{ orderDetails.user.name ?? '' }}</p>
+                <h3>Endereço:</h3>
+                <p>{{ orderDetails.address || 'Não informado' }}</p>
+                <h3>Telefone:</h3>
+                <p>{{ orderDetails.phone?? '' }}</p>
+            </div>
+
+            <div class="details-section">
+                <h3>Resumo do pedido</h3>
+                <div class="order-items">
+                    <div *ngFor="let dish of orderDetails.dishes || []" class="order-item">
+                        <span>{{ dish.name }}</span>
+                        <span>R$ {{ dish.price?.toFixed(2)?? '' }}</span>
+                    </div>
+                </div>
+                <div class="order-total">
+                    <strong>Total:</strong>
+                    <strong>R$ {{ orderDetails.totalAmount.toFixed(2)?? '' }}</strong>
+                </div>
+            </div>
+
+            <div class="details-section">
+                <h3>Pagamento</h3>
+                <p>Método: {{ orderDetails.paymentMethod?? '' }}</p>
+            </div>
+
+            <div class="details-section">
+                <h3>Mais Informações</h3>
+                <p>Data do pedido: {{ orderDetails.orderDate | date:'dd-MM-yyyy' }} às {{ orderDetails.orderDate | date:'HH:mm' }}hr</p>
+                <p>Status: {{ orderDetails.status == 'READY' ? 'AGUARDANDO ENTREGA' : orderDetails.status }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="back-button" (click)="backToHistory()">Voltar aos pedidos</button>
+    </div>
+</div>

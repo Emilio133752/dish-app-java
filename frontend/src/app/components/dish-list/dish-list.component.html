@@ -1,0 +1,26 @@
+<!-- src/app/components/dish-list/dish-list.component.html -->
+
+<h2>Pratos</h2>
+<div>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Descrição</th>
+    <th>Preço</th>
+    <th>Ações</th>
+  </tr>
+  <tr *ngFor="let dish of dishes">
+    <td>{{ dish.id }}</td>
+    <td>{{ dish.name }}</td>
+    <td>{{ dish.description }}</td>
+    <td>R$ {{ dish.price.toFixed(2) }}</td>
+    <td>
+      <button class="delete" (click)="deleteDish(dish.id!)">Deletar</button>
+      <a class="edit" [routerLink]="['/edit-dish', dish.id]">Editar</a>
+    </td>
+  </tr>
+</table>
+<a class="newDish" routerLink="/add-dish">NOVO ITEM</a>
+
+</div>

@@ -1,0 +1,28 @@
+<h2>Pedidos</h2>
+<div class="box">
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Valor</th>
+    <th>Status</th>
+    <th>Dt. Pedido</th>
+    <th>Ações</th>
+  </tr>
+  <tr *ngFor="let order of orders">
+    <td>{{ order.id }}</td>
+    <td>{{ order.totalAmount | currency:'BRL':'symbol':'1.2-2' }}</td>
+    <td>
+        <select [(ngModel)]="order.status" (change)="onStatusChange(order, order.status)" name="status" style="margin-bottom: 2rem; width: 9rem;">
+            <option *ngFor="let std of status" [ngValue]="std">
+              {{ std === 'READY' ? 'AGUARDANDO ENTREGA' : std === 'DELIVERED' ? 'ENTREGUE' : std }}
+            </option>
+        </select>
+    </td>
+    <td>{{ order.orderDate | date:'dd-MM-yyyy' }} às {{ order.orderDate | date:'HH:mm' }}hr</td>
+    <td>
+        <a class="edit" [routerLink]="['/entregas/detalhes', order.id]">Detalhes</a>
+    </td>
+  </tr>
+</table>
+
+</div>

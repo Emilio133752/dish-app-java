@@ -1,0 +1,46 @@
+<div class="app-container">
+    <div *ngIf="showHeader">
+        <header class="header">
+            <button class="back-btn" (click)="goBack()" *ngIf="canGoBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
+            <div>
+                <p class="logo">Los Gourmet</p>
+                <div class="nav-container" *ngIf="!isGerente">
+                    <a *ngIf="!isEntregador" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-button">Cardápio</a>
+                    <a *ngIf="!isEntregador" routerLink="/finalizado" routerLinkActive="active" class="nav-button">Carrinho</a>
+                    <a *ngIf="isCliente" routerLink="/pedido" routerLinkActive="active" class="nav-button">Pedido</a>
+                    <a *ngIf="isCliente" routerLink="/historico" routerLinkActive="active" class="nav-button">Histórico</a>
+                </div>
+    
+                <div class="nav-container" *ngIf="isGerente">
+                    <a routerLink="/gerente" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-button">Pratos</a>
+                    <a routerLink="/products" routerLinkActive="active" class="nav-button">Produtos</a>
+                    <a routerLink="/category" routerLinkActive="active" class="nav-button">Categorias</a>
+                    <a routerLink="/user" routerLinkActive="active" class="nav-button">Usuários</a>
+                    <a routerLink="/orders" routerLinkActive="active" class="nav-button">Pedidos</a>
+                </div>
+    
+                <div class="nav-container" *ngIf="isEntregador">
+                    <a routerLink="/entregas" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-button">Pedidos</a>
+                </div>
+            </div>
+
+            <div class="auth-btn">
+                <button class="nav-button" (click)="logout()" *ngIf="isAuthenticated">
+                    Sair
+                </button>
+                <a *ngIf="!isAuthenticated" routerLink="/login" routerLinkActive="active" class="nav-button">Login</a>
+            </div>
+        </header>
+    
+        <div class="status-bar">
+            INICIANDO CAIXA 
+        </div>
+    </div>
+
+    <main class="main-content">
+        <router-outlet></router-outlet>
+    </main>
+</div>
